@@ -1,0 +1,50 @@
+1. Authentication &amp; Security
+These endpoints handle user identity and chassis-level access control.
+ POST /api/auth/register: Registers a new user with Name, Email, Password, and Chassis
+type (e.g., W204, W212).
+ POST /api/auth/login: Validates credentials and issues a secure JWT or session cookie.
+ POST /api/auth/logout: Invalidates the current session.
+ GET /api/auth/me: Retrieves account details and registered vehicle profiles for the current
+user.
+ POST /api/auth/forgot-password: Triggers a recovery email with a secure, time-limited
+token.
+
+2. Technical Services &amp; Module Repairs
+The core engine for tracking high-stakes automotive electronic repairs.
+ GET /api/services: Fetches the directory of technical capabilities (ECU, EIS, FBS-4, etc.).
+ GET /api/services/:id: Fetches deep technical details and compatibility for a specific
+service.
+ POST /api/appointments/book: Creates a new repair request/diagnosis appointment for a
+specific module.
+ GET /api/appointments/user: Retrieves a list of all current and historical repairs for the
+logged-in user.
+ GET /api/appointments/:id: Fetches the live &quot;Repair Timeline&quot; and status updates for a
+specific job.
+
+3. Spare Parts &amp; Inventory (E-Commerce)
+Focuses on part-number precision and chassis compatibility.
+ GET /api/products: Lists the spare parts catalog with filters for category and chassis
+compatibility.
+ GET /api/products/:id: Detailed view of a part including OEM part numbers and pricing.
+ POST /api/admin/products: (Admin Only) Uploads new parts with fields for OEM number,
+price, stock, and compatibility arrays.
+ PATCH /api/admin/products/:id: (Admin Only) Updates inventory levels, pricing, or
+compatibility tags.
+
+4. Media Center &amp; Technical News (CMS)
+Handles technical authority through content and visual transparency.
+ GET /api/news: Fetches the list of technical articles, case studies, and updates.
+ GET /api/news/:slug: Retrieves a full article based on its URL-friendly slug.
+ GET /api/media: Loads the public gallery of diagnostic procedures and successful repairs.
+ POST /api/admin/news: (Admin Only) Publishes new technical content via a rich-text editor.
+ POST /api/admin/media/upload: (Admin Only) Handles high-resolution image uploads to
+storage (S3/Cloudinary).
+
+5. Administrative &amp; Diagnostic Tools
+Internal endpoints for managing the technical workflow.
+ GET /api/admin/users: (Admin Only) Lists all registered users and their associated chassis
+history.
+ PATCH /api/admin/appointments/:id/status: (Admin Only) Moves a repair through
+stages (e.g., &quot;In Diagnostics&quot; → &quot;Syncing&quot; → &quot;Ready&quot;).
+ POST /api/admin/appointments/:id/report: (Admin Only) Attaches a diagnostic PDF or
+binary scan file to a user&#39;s appointment.
